@@ -1,0 +1,12 @@
+version: 0.1
+author: ov3rk1ll
+name: NamedSignEdit
+main: com.ov3rk1ll.nse.NamedSignEditPlugin
+
+commands:
+ nse:
+  description: Remotely edit signs.
+  usage: nse <name|set|clear> <signname> ...
+ namesignedit:
+  description: Remotely edit signs.
+  usage: namesignedit <name|set|clear> <signname> ...
