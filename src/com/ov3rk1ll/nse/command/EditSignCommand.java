@@ -41,7 +41,7 @@ public class EditSignCommand implements CommandExecutor {
 			s.sendMessage(ChatColor.RED + CHATTAG + " You must be op to run this command!");	
 			return true;
 		}
-		if(args[0].equals("set")){
+		if(args[0].equals("set") || args[0].equals("s")){
 			if(args.length < 3){
 				return false;
 			}
@@ -52,7 +52,7 @@ public class EditSignCommand implements CommandExecutor {
 			text = text.substring(0, text.length() - 1);
 			setNamedSign(args[1], Integer.valueOf(args[2]), text, s);
 			return true;
-		} else if(args[0].equals("name")){
+		} else if(args[0].equals("name") || args[0].equals("n")){
 			if(args.length == 2){ // We should be a player and looking at a sign
 				Player p = resolveToPlayer(s);
 				if(!(p instanceof Player)){
@@ -74,7 +74,7 @@ public class EditSignCommand implements CommandExecutor {
 				s.sendMessage(ChatColor.GREEN + CHATTAG + " Named sign!");
 				return true;
 			}
-		} else if(args[0].equals("clean") || args[0].equals("clear")){
+		} else if(args[0].equals("clean") || args[0].equals("clear") || args[0].equals("c")){
 			if(args.length < 2){
 				return false;
 			} else if(args.length == 2){
@@ -86,7 +86,7 @@ public class EditSignCommand implements CommandExecutor {
 				setNamedSign(args[1], Integer.valueOf(args[2]), "", s);
 			}
 			return true;
-		} else if(args[0].equals("remove")){
+		} else if(args[0].equals("remove") || args[0].equals("r")){
 			this.plugin.getConfig().set("signs." + args[1], null);
 			this.plugin.saveConfig();
 			s.sendMessage(ChatColor.RED + CHATTAG + " Sign has been removed!");

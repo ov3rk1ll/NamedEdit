@@ -43,14 +43,14 @@ public class EditHeadCommand implements CommandExecutor {
 			s.sendMessage(ChatColor.RED + CHATTAG + " You must be op to run this command!");	
 			return true;
 		}
-		if(args[0].equals("set")){
+		if(args[0].equals("set") || args[0].equals("s")){
 			if(args.length < 3){
 				return false;
 			}
 			setNamedHead(args[1], args[2], s);
 			return true;
-		} else if(args[0].equals("name")){
-			if(args.length == 2){ // We should be a player and looking at a sign
+		} else if(args[0].equals("name") || args[0].equals("n")){
+			if(args.length == 2){ // We should be a player and looking at a head
 				Player p = resolveToPlayer(s);
 				if(!(p instanceof Player)){
 					s.sendMessage(ChatColor.RED + CHATTAG + " You are not a player. Please provide the head's location!");	
@@ -71,10 +71,10 @@ public class EditHeadCommand implements CommandExecutor {
 				s.sendMessage(ChatColor.GREEN + CHATTAG + " Named head!");
 				return true;
 			}
-		} else if(args[0].equals("clean") || args[0].equals("clear")){
+		} else if(args[0].equals("clean") || args[0].equals("clear") || args[0].equals("c")){
 			setNamedHead(args[1], "", s);
 			return true;
-		} else if(args[0].equals("remove")){
+		} else if(args[0].equals("remove") || args[0].equals("r")){
 			this.plugin.getConfig().set("heads." + args[1], null);
 			this.plugin.saveConfig();
 			s.sendMessage(ChatColor.RED + CHATTAG + " Head has been removed!");
