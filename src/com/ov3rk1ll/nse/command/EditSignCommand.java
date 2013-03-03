@@ -1,6 +1,5 @@
 package com.ov3rk1ll.nse.command;
 
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -11,11 +10,13 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.util.Vector;
 
 import com.ov3rk1ll.nse.NamedSignEditPlugin;
+import com.ov3rk1ll.nse.config.WorldLocation;
 
 public class EditSignCommand implements CommandExecutor {
+	public static String TAG = "NamedSignEdit";
+	public static String CHATTAG = "[" + TAG + "]";
 
 	private final NamedSignEditPlugin plugin;
 
@@ -37,7 +38,8 @@ public class EditSignCommand implements CommandExecutor {
 	 */
 	public boolean onCommand(CommandSender s, Command c, String l, String[] args){	
 		if(!s.isOp()){
-			return false;
+			s.sendMessage(ChatColor.RED + CHATTAG + " You must be op to run this command!");	
+			return true;
 		}
 		if(args[0].equals("set")){
 			if(args.length < 3){
@@ -54,28 +56,22 @@ public class EditSignCommand implements CommandExecutor {
 			if(args.length == 2){ // We should be a player and looking at a sign
 				Player p = resolveToPlayer(s);
 				if(!(p instanceof Player)){
-					s.sendMessage(ChatColor.RED + NamedSignEditPlugin.CHATTAG + " You are not a player. Please provide the sign's location!");	
+					s.sendMessage(ChatColor.RED + CHATTAG + " You are not a player. Please provide the sign's location!");	
 					return false;				
 				}
 				Block b = p.getTargetBlock(null, 200);
 				if(b.getTypeId() != Material.SIGN_POST.getId() && b.getTypeId() != Material.WALL_SIGN.getId()){
-					s.sendMessage(ChatColor.RED + NamedSignEditPlugin.CHATTAG + " You are not looking at a sign! (" + Material.getMaterial(b.getTypeId()).name() + ")");	
+					s.sendMessage(ChatColor.RED + CHATTAG + " You are not looking at a sign! (" + Material.getMaterial(b.getTypeId()).name() + ")");	
 					return false;									
 				}
-				String configBase = "signs." + args[1];
-				this.plugin.getConfig().set(configBase + ".world", p.getWorld().getName());
-				Vector v = new Vector(b.getLocation().getBlockX(), b.getLocation().getBlockY(), b.getLocation().getBlockZ());
-				this.plugin.getConfig().set(configBase + ".location", v);
+				this.plugin.getConfig().set("signs." + args[1], new WorldLocation(p.getWorld().getName(), b.getLocation()).toString());
 				this.plugin.saveConfig();
-				s.sendMessage(ChatColor.GREEN + NamedSignEditPlugin.CHATTAG + " Named sign!");
+				s.sendMessage(ChatColor.GREEN + CHATTAG + " Named sign!");
 				return true;
 			} else {
-				String configBase = "signs." + args[1];
-				this.plugin.getConfig().set(configBase + ".world", args[2]);
-				Vector v = new Vector(Integer.valueOf(args[3]), Integer.valueOf(args[4]), Integer.valueOf(args[5]));
-				this.plugin.getConfig().set(configBase + ".location", v);
+				this.plugin.getConfig().set("signs." + args[1], new WorldLocation(args[2], Integer.valueOf(args[3]), Integer.valueOf(args[4]), Integer.valueOf(args[5])).toString());
 				this.plugin.saveConfig();
-				s.sendMessage(ChatColor.GREEN + NamedSignEditPlugin.CHATTAG + " Named sign!");
+				s.sendMessage(ChatColor.GREEN + CHATTAG + " Named sign!");
 				return true;
 			}
 		} else if(args[0].equals("clean") || args[0].equals("clear")){
@@ -91,16 +87,15 @@ public class EditSignCommand implements CommandExecutor {
 			}
 			return true;
 		} else if(args[0].equals("remove")){
-			String configBase = "signs." + args[1];
-			this.plugin.getConfig().set(configBase, null);
+			this.plugin.getConfig().set("signs." + args[1], null);
 			this.plugin.saveConfig();
-			s.sendMessage(ChatColor.RED + NamedSignEditPlugin.CHATTAG + " Sign has been removed!");
+			s.sendMessage(ChatColor.RED + CHATTAG + " Sign has been removed!");
 			return true;
 		} else if(args[0].equals("x")){
 			Player p = resolveToPlayer(s);
 			Block b = p.getTargetBlock(null, 200);
 			if(b.getTypeId() != Material.SIGN_POST.getId() && b.getTypeId() != Material.WALL_SIGN.getId()){
-				s.sendMessage(ChatColor.RED + NamedSignEditPlugin.CHATTAG + " You are not looking at a sign! (" + Material.getMaterial(b.getTypeId()).name() + ")");	
+				s.sendMessage(ChatColor.RED + CHATTAG + " You are not looking at a sign! (" + Material.getMaterial(b.getTypeId()).name() + ")");	
 				return false;									
 			}
 			String text = "";
@@ -120,12 +115,11 @@ public class EditSignCommand implements CommandExecutor {
 	private void setNamedSign(String name, int line, String text, CommandSender s){
 		String configBase = "signs." + name;
 		if(this.plugin.getConfig().contains(configBase) == false){
-			s.sendMessage(ChatColor.RED + NamedSignEditPlugin.CHATTAG + " Unknown sign name!");
+			s.sendMessage(ChatColor.RED + CHATTAG + " Unknown sign name!");
 			return;
 		}
-		String world = this.plugin.getConfig().getString(configBase + ".world");
-		Vector v = this.plugin.getConfig().getVector(configBase + ".location");
-		setSignLineAt(v.getBlockX(), v.getBlockY(), v.getBlockZ(), world, line, text, s);
+		WorldLocation location = new WorldLocation(this.plugin.getConfig().getString(configBase));
+		setSignLineAt(location.getX(), location.getY(), location.getZ(), location.getWorld(), line, text, s);
 	}
 	
 	private void setSignLineAt(int x, int y, int z, String world, int line, String text, CommandSender s){
@@ -135,10 +129,10 @@ public class EditSignCommand implements CommandExecutor {
 	        Sign sign = (Sign) stateBlock;        
 	        sign.setLine(line, convertColors(text));
 	        sign.update(true);
-	        s.sendMessage(ChatColor.GREEN + NamedSignEditPlugin.CHATTAG + " set line " + line + " to " + ChatColor.YELLOW + text + ChatColor.GREEN + " at " + x + "," + y + "," + z + " in " + world);
+	        s.sendMessage(ChatColor.GREEN + CHATTAG + " set line " + line + " to " + ChatColor.YELLOW + text + ChatColor.GREEN + " at " + x + "," + y + "," + z + " in " + world);
 		} catch (ClassCastException e){
-			s.sendMessage(ChatColor.RED + NamedSignEditPlugin.CHATTAG + " no sign found at " + x + "," + y + "," + z + " in " + world);
-			s.sendMessage(ChatColor.RED + NamedSignEditPlugin.CHATTAG + " replace the sign or use /nse remove <name> to remove the sign");
+			s.sendMessage(ChatColor.RED + CHATTAG + " no sign found at " + x + "," + y + "," + z + " in " + world);
+			s.sendMessage(ChatColor.RED + CHATTAG + " replace the sign or use /nse remove <name> to remove the sign");
 		}
 	}
 	

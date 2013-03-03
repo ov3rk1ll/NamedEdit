@@ -22,4 +22,25 @@ The plugin will not check if the given text will fit the sign!
 Permissions:
 The player must be OP to run the commands.
 
+NamedHeadEdit
+=============
+
+Name playerheads and edit them remotely
+
+Usage:
+/nhe action parameter or
+/namedheadedit action parameter
+
+actions:
+ - name:
+  - when running as a player looking at the target head: name (eg. /nhe name test)
+  - when not looking at the head or form server console name world x y z (eg. /nhe name test world -100 64 20) 
+ - set name player - (eg. /nhe test ov3rk1ll)
+ - clear name - (eg. /nhe clear test)
+ - remove name - removes head from plugin
+ - x player - shortcut to set head without giving it a name - must be run by a player looking at the head - if no palyer is given, the head is reset to default - (eg. /nse x ov3rk1ll)
+
+Permissions:
+The player must be OP to run the commands.
+
 

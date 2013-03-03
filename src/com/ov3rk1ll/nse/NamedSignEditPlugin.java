@@ -2,21 +2,20 @@ package com.ov3rk1ll.nse;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.ov3rk1ll.nse.command.EditHeadCommand;
 import com.ov3rk1ll.nse.command.EditSignCommand;
 
 
 
 public class NamedSignEditPlugin extends JavaPlugin {
-	public static String TAG = "NamedSignEdit";
-	public static String CHATTAG = "[" + TAG + "]";
 	
-	private EditSignCommand cc;
-
 	public void onEnable() {
 		saveDefaultConfig();
-		this.cc = new EditSignCommand(this);
-		getCommand("nse").setExecutor(this.cc);
-		//getCommand("namedsignedit").setExecutor(this.cc);
+		getCommand("nse").setExecutor(new EditSignCommand(this));
+		getCommand("namedsignedit").setExecutor(new EditSignCommand(this));
+		
+		getCommand("nhe").setExecutor(new EditHeadCommand(this));
+		getCommand("namedheadedit").setExecutor(new EditHeadCommand(this));
 	}
 
 	public void onDisable(){

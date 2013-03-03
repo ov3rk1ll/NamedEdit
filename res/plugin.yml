@@ -7,6 +7,12 @@ commands:
  nse:
   description: Remotely edit signs.
   usage: nse <name|set|clear> <signname> ...
- namesignedit:
+ namedsignedit:
   description: Remotely edit signs.
   usage: namesignedit <name|set|clear> <signname> ...
+ nhe:
+  description: Remotely edit player heads.
+  usage: nhe <name|set|clear> <headname> ...
+ namedheadedit:
+  description: Remotely edit player heads.
+  usage: nameheadedit <name|set|clear> <headname> ...
