@@ -1,5 +1,6 @@
 package com.ov3rk1ll.nse;
 
+import java.io.IOException;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.ov3rk1ll.nse.command.EditHeadCommand;
