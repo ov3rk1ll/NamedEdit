@@ -11,16 +11,16 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import com.ov3rk1ll.nse.NamedSignEditPlugin;
+import com.ov3rk1ll.nse.NamedEditPlugin;
 import com.ov3rk1ll.nse.config.WorldLocation;
 
 public class EditSignCommand implements CommandExecutor {
 	public static String TAG = "NamedSignEdit";
 	public static String CHATTAG = "[" + TAG + "]";
 
-	private final NamedSignEditPlugin plugin;
+	private final NamedEditPlugin plugin;
 
-	public EditSignCommand(NamedSignEditPlugin plugin)
+	public EditSignCommand(NamedEditPlugin plugin)
 	{
 		this.plugin = plugin;
 	}

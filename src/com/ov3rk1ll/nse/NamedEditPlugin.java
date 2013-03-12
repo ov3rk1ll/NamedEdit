@@ -10,7 +10,7 @@ import com.ov3rk1ll.nse.command.EditSignCommand;
 
 
 
-public class NamedSignEditPlugin extends JavaPlugin {
+public class NamedEditPlugin extends JavaPlugin {
 	
 	public void onEnable() {
 		saveDefaultConfig();

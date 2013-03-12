@@ -13,16 +13,16 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import com.ov3rk1ll.nse.NamedSignEditPlugin;
+import com.ov3rk1ll.nse.NamedEditPlugin;
 import com.ov3rk1ll.nse.config.WorldLocation;
 
 public class EditHeadCommand implements CommandExecutor {
 	public static String TAG = "NamedHeadEdit";
 	public static String CHATTAG = "[" + TAG + "]";
 
-	private final NamedSignEditPlugin plugin;
+	private final NamedEditPlugin plugin;
 
-	public EditHeadCommand(NamedSignEditPlugin plugin)
+	public EditHeadCommand(NamedEditPlugin plugin)
 	{
 		this.plugin = plugin;
 	}

@@ -1,7 +1,7 @@
 version: 0.2.1
 author: ov3rk1ll
-name: NamedSignEdit
-main: com.ov3rk1ll.nse.NamedSignEditPlugin
+name: NamedEdit
+main: com.ov3rk1ll.nse.NamedEditPlugin
 
 commands:
  nse:
