@@ -24,7 +24,6 @@ public class NamedSignEditPlugin extends JavaPlugin {
 		    MetricsLite metrics = new MetricsLite(this);
 		    metrics.start();
 		} catch (IOException e) {
-		    // Failed to submit the stats :-(
 		}
 	}
 
