@@ -50,7 +50,12 @@ public class EditSignCommand implements CommandExecutor {
 				text += args[i] + " ";
 			}
 			text = text.substring(0, text.length() - 1);
-			setNamedSign(args[1], Integer.valueOf(args[2]), text, s);
+			int line = Integer.valueOf(args[2]);
+			if(line < 0 || line > 3){
+				s.sendMessage(ChatColor.RED + CHATTAG + " Line must be between 0-3");
+				return true;
+			}
+			setNamedSign(args[1], line, text, s);
 			return true;
 		} else if(args[0].equals("name") || args[0].equals("n")){
 			if(args.length == 2){ // We should be a player and looking at a sign
@@ -83,7 +88,12 @@ public class EditSignCommand implements CommandExecutor {
 				setNamedSign(args[1], 2, "", s);
 				setNamedSign(args[1], 3, "", s);
 			} else if(args.length == 3){
-				setNamedSign(args[1], Integer.valueOf(args[2]), "", s);
+				int line = Integer.valueOf(args[2]);
+				if(line < 0 || line > 3){
+					s.sendMessage(ChatColor.RED + CHATTAG + " Line must be between 0-3");
+					return true;
+				}
+				setNamedSign(args[1], line, "", s);
 			}
 			return true;
 		} else if(args[0].equals("remove") || args[0].equals("r")){
@@ -105,7 +115,12 @@ public class EditSignCommand implements CommandExecutor {
 				}
 				text = text.substring(0, text.length() - 1);
 			}
-			setSignLineAt(b.getLocation().getBlockX(), b.getLocation().getBlockY(), b.getLocation().getBlockZ(), p.getWorld().getName(), Integer.valueOf(args[1]), text, s);
+			int line = Integer.valueOf(args[1]);
+			if(line < 0 || line > 3){
+				s.sendMessage(ChatColor.RED + CHATTAG + " Line must be between 0-3");
+				return true;
+			}
+			setSignLineAt(b.getLocation().getBlockX(), b.getLocation().getBlockY(), b.getLocation().getBlockZ(), p.getWorld().getName(), line, text, s);
 			return true;
 		}
 

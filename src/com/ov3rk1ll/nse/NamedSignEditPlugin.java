@@ -2,11 +2,11 @@ package com.ov3rk1ll.nse;
 
 import java.io.IOException;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.mcstats.MetricsLite;
 
 import com.ov3rk1ll.nse.command.EditHeadCommand;
 import com.ov3rk1ll.nse.command.EditSignCommand;
 
-import org.mcstats.MetricsLite;
 
 
 

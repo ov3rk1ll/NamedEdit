@@ -53,10 +53,18 @@
 						</goals>
 						<configuration>
 							<artifactSet>
-								<includes>
-									<include>com.martiansoftware</include>
-								</includes>
+							  <includes>
+							    <include>org.mcstats.bukkit:metrics-lite:jar:*</include>
+							  </includes>
 							</artifactSet>
+							<filters>
+							  <filter>
+							    <artifact>org.mcstats.bukkit:metrics-lite:jar:R6</artifact>
+							    <includes>
+							      <include>org/mcstats/*</include>
+							    </includes>
+							  </filter>
+							</filters>
 						</configuration>
 					</execution>
 				</executions>
